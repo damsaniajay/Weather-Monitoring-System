@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Weather Monitoring System</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Monitoring System</h1>
+
+        <h2>Daily Weather Summaries</h2>
+        <table>
+            <tr>
+                <th>City</th>
+                <th>Date</th>
+                <th>Average Temp (°C)</th>
+                <th>Max Temp (°C)</th>
+                <th>Min Temp (°C)</th>
+                <th>Weather Condition</th>
+            </tr>
+            {% for summary in daily_summaries %}
+            <tr>
+                <td>{{ summary.city }}</td>
+                <td>{{ summary.date }}</td>
+                <td>{{ summary.avg_temp }}</td>
+                <td>{{ summary.max_temp }}</td>
+                <td>{{ summary.min_temp }}</td>
+                <td>{{ summary.weather_condition }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Alerts</h2>
+        <ul id="alertList">
+            {% for alert in alerts %}
+            <li class="alert">{{ alert }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Visualizations</h2>
+        <h3>Daily Average Temperature by City</h3>
+        <img src="{{ url_for('static', filename='plots/daily_summary.png') }}" alt="Daily Weather Summary Plot" id="weatherPlot">
+
+        <h3>Historical Average Temperature Trend</h3>
+        <img src="{{ url_for('static', filename='plots/historical_trend.png') }}" alt="Historical Average Temperature Trend" id="historicalTrend">
+
+        <h3>Alerts Frequency by City</h3>
+        <img src="{{ url_for('static', filename='plots/alerts_frequency.png') }}" alt="Alerts Frequency by City" id="alertsFrequency">
+
+        <button id="refreshButton">Refresh Data</button>
+    </div>
+
+    <script>
+        document.getElementById('refreshButton').onclick = function() {
+            location.reload();
+        };
+    </script>
+</body>
+</html>
+
+
+
+
+
+
